@@ -1,0 +1,15 @@
+{
+  "name": "nodeclientdemo",
+  "version": "1.0.0",
+  "description": "\"node.js 学习\"",
+  "main": "hello.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
