@@ -3,22 +3,28 @@ var express=require('express');
 var app=express();
 var bodyParser=require('body-parser');
 
-var util=require('util');
+var UserDao=require('./UserDao');
+
 
 
 var urlEncodeParse=bodyParser.urlencoded({extended:false});
-app.use('/public', express.static('public'));
 
 app.get('/stu_post_form.html',function(req,res){
     res.sendFile( __dirname + "/" + "stu_post_form.html" );
 });
 app.post('/process_post',urlEncodeParse,function(req,res){
     var response = {
-        "first_name":req.body.first_name,
-        "last_name":req.body.last_name
+        "name":req.body.name,
+        "pwd":req.body.pwd
     };
-    console.log(util.inspect(response))
-    res.end(JSON.stringify(response));
+    var userDao=new UserDao();
+    userDao.queryUser(req.body.name,req.body.pwd,function(){
+        res.end(JSON.stringify(response));
+    },function(){
+       res.send('用户不存在!!!');
+    })
+    
+    
 });
 
 var server = app.listen(10000, 'localhost',function () {
